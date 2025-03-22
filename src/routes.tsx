@@ -8,7 +8,7 @@ export default function RoutesConfig() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:cripto" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
