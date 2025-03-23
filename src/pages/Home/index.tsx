@@ -81,7 +81,13 @@ export default function Home() {
                 <td>$1.3T</td>
                 <td>$65.000,00</td>
                 <td>$16B</td>
-                <td>1.20</td>
+                <td
+                  className={
+                    Number(data.volumeUsd24Hr) > 0 ? "text-profit" : "text-loss"
+                  }
+                >
+                  1.20
+                </td>
               </Tr>
             ))}
           </tbody>
