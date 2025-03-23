@@ -4,21 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { api } from "../../api/coincap";
 
 import { Tr } from "../../components/Tr";
-
-interface AssetsProps {
-  id: string;
-  rank: string;
-  symbol: string;
-  name: string;
-  supply: string;
-  maxSupply: string | null;
-  marketCapUsd: string;
-  volumeUsd24Hr: string;
-  priceUsd: string;
-  changePercent24Hr: string;
-  vwap24Hr: string;
-  explorer: string;
-}
+import { AssetsProps } from "../../types/AssetsProps";
 
 export default function Home() {
   const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
@@ -35,8 +21,6 @@ export default function Home() {
 
     getAssets();
   }, []);
-
-  console.log(criptosFecth);
 
   return (
     <main className="container mx-auto px-6">
@@ -61,7 +45,7 @@ export default function Home() {
               <th>Valor mercado</th>
               <th>Preço</th>
               <th>Volume</th>
-              <th>Mundaça 24h</th>
+              <th>Mudança 24h</th>
             </tr>
           </thead>
           <tbody>
