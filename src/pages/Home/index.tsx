@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { api } from "../../api/coincap";
 
+import { Tr } from "../../components/Tr";
+
 interface AssetsProps {
   id: string;
   rank: string;
@@ -19,7 +21,7 @@ interface AssetsProps {
 }
 
 export default function Home() {
-  const [criptosFecth, setCriptosFecth] = useState<AssetsProps[] | string>([]);
+  const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
 
   useEffect(() => {
     const getAssets = async () => {
@@ -27,7 +29,7 @@ export default function Home() {
         const response = await api.get("/assets");
         setCriptosFecth(response.data.data);
       } catch (e) {
-        setCriptosFecth("Erro ao buscar ativos: " + e);
+        console.log("Erro " + e);
       }
     };
 
@@ -52,7 +54,7 @@ export default function Home() {
       </form>
 
       <section className="overflow-auto">
-        <table className="text-white mt-10 w-full text-center min-w-[600px]">
+        <table className="text-white mt-10 w-full text-center min-w-[600px] border-separate border-spacing-y-4">
           <thead>
             <tr>
               <th>Moeda</th>
@@ -64,19 +66,24 @@ export default function Home() {
           </thead>
           <tbody>
             <tr className="bg-primaryOpace font-bold h-12 rounded-lg">
-              <td>Bitcoin | BTC</td>
+              <td>Teste | BTC</td>
               <td>$1.3T</td>
               <td>$65.000,00</td>
               <td>$16B</td>
               <td>1.20</td>
             </tr>
-            <tr>
-              <td>Bitcoin | BTC</td>
-              <td>$1.3T</td>
-              <td>$65.000,00</td>
-              <td>$16B</td>
-              <td>1.20</td>
-            </tr>
+
+            {criptosFecth.map((data: AssetsProps) => (
+              <Tr key={data.id}>
+                <td>
+                  {data.name} | {data.symbol}
+                </td>
+                <td>$1.3T</td>
+                <td>$65.000,00</td>
+                <td>$16B</td>
+                <td>1.20</td>
+              </Tr>
+            ))}
           </tbody>
         </table>
       </section>
