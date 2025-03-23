@@ -8,7 +8,7 @@ export default {
         primaryOpace: "#1C1C20",
 
         profit: "#12f98a",
-        loss: "f91257",
+        loss: "#f91257",
       },
     },
   },
