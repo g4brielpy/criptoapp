@@ -62,7 +62,7 @@ export default function Home() {
               <th>Mundaça 24h</th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody>
             <tr className="bg-primaryOpace font-bold h-12 rounded-lg">
               <td>Bitcoin | BTC</td>
               <td>$1.3T</td>
