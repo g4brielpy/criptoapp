@@ -6,5 +6,12 @@ interface ButtonMoreProps
 }
 
 export function ButtonMore({ children, ...rest }: ButtonMoreProps) {
-  return <button {...rest}>{children}</button>;
+  return (
+    <button
+      className="bg-teal-900 text-white px-8 py-2 rounded-md text-lg hover:opacity-85 font-bold"
+      {...rest}
+    >
+      {children}
+    </button>
+  );
 }
