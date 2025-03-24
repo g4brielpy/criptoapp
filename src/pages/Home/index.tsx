@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { api } from "../../api/coincap";
 
 import { Tr } from "../../components/Tr";
+import { ButtonMore } from "../../components/ButtonMore";
 import { AssetsProps } from "../../types/AssetsProps";
 
 export default function Home() {
@@ -12,7 +13,9 @@ export default function Home() {
   useEffect(() => {
     const getAssets = async () => {
       try {
-        const response = await api.get("/assets");
+        const response = await api.get("/assets", {
+          params: { limit: 10 },
+        });
         setCriptosFecth(response.data.data);
       } catch (e) {
         console.log("Erro " + e);
@@ -22,8 +25,10 @@ export default function Home() {
     getAssets();
   }, []);
 
+  function handleGetMore(): void {}
+
   return (
-    <main className="container mx-auto px-6">
+    <main className="container mx-auto px-6 pb-6">
       <form action="#" className="flex gap-6">
         <input
           type="text"
@@ -38,7 +43,7 @@ export default function Home() {
       </form>
 
       <section className="overflow-auto">
-        <table className="text-white mt-10 w-full text-center min-w-[600px] border-separate border-spacing-y-4">
+        <table className="text-white my-10 w-full text-center min-w-[600px] border-separate border-spacing-y-4">
           <thead>
             <tr>
               <th>Moeda</th>
@@ -76,6 +81,8 @@ export default function Home() {
             ))}
           </tbody>
         </table>
+
+        <ButtonMore onClick={handleGetMore}>Ver Mais</ButtonMore>
       </section>
     </main>
   );
