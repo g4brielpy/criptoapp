@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { BsSearch } from "react-icons/bs";
 
-import { formatedPrice } from "../../utils/formatedPrice";
+import { formatedPrice, formatedPriceCompact } from "../../utils/formatedPrice";
 import { api } from "../../api/coincap";
 
 import { Tr } from "../../components/Tr";
@@ -24,6 +24,12 @@ export default function Home() {
           const dataFormated: AssetsProps = {
             ...item,
             priceUsd: formatedPrice.format(Number(item.priceUsd)),
+            marketCapUsd: formatedPriceCompact.format(
+              Number(item.marketCapUsd)
+            ),
+            volumeUsd24Hr: formatedPriceCompact.format(
+              Number(item.volumeUsd24Hr)
+            ),
           };
 
           return dataFormated;
@@ -59,30 +65,22 @@ export default function Home() {
         <table className="text-white my-10 w-full text-center min-w-[600px] border-separate border-spacing-y-4">
           <thead>
             <tr>
-              <th>Moeda</th>
-              <th>Valor mercado</th>
-              <th>Preço</th>
-              <th>Volume</th>
-              <th>Mudança 24h</th>
+              <th scope="col">Moeda</th>
+              <th scope="col">Valor mercado</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Volume</th>
+              <th scope="col">Mudança 24h</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-primaryOpace font-bold h-12 rounded-lg">
-              <td>Teste | BTC</td>
-              <td>$1.3T</td>
-              <td>$65.000,00</td>
-              <td>$16B</td>
-              <td>1.20</td>
-            </tr>
-
             {criptosFecth.map((data: AssetsProps) => (
               <Tr key={data.id}>
                 <td>
                   {data.name} | {data.symbol}
                 </td>
-                <td>$1.3T</td>
+                <td>{data.marketCapUsd}</td>
                 <td>{data.priceUsd}</td>
-                <td>$16B</td>
+                <td>{data.volumeUsd24Hr}</td>
                 <td
                   className={
                     Number(data.volumeUsd24Hr) > 0 ? "text-profit" : "text-loss"
