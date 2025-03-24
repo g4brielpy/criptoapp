@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { BsSearch } from "react-icons/bs";
+
+import { formatedPrice } from "../../utils/formatedPrice";
 import { api } from "../../api/coincap";
 
 import { Tr } from "../../components/Tr";
@@ -16,7 +18,18 @@ export default function Home() {
         const response = await api.get("/assets", {
           params: { limit: 10 },
         });
-        setCriptosFecth(response.data.data);
+
+        let dataAssetsFormated: AssetsProps[] = response.data.data;
+        dataAssetsFormated = dataAssetsFormated.map((item: AssetsProps) => {
+          const dataFormated: AssetsProps = {
+            ...item,
+            priceUsd: formatedPrice.format(Number(item.priceUsd)),
+          };
+
+          return dataFormated;
+        });
+
+        setCriptosFecth(dataAssetsFormated);
       } catch (e) {
         console.log("Erro " + e);
       }
@@ -68,7 +81,7 @@ export default function Home() {
                   {data.name} | {data.symbol}
                 </td>
                 <td>$1.3T</td>
-                <td>$65.000,00</td>
+                <td>{data.priceUsd}</td>
                 <td>$16B</td>
                 <td
                   className={
