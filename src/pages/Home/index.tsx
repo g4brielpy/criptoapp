@@ -1,48 +1,12 @@
-import { useEffect, useState } from "react";
-
-import { BsSearch } from "react-icons/bs";
-
-import { formatedPrice, formatedPriceCompact } from "../../utils/formatedPrice";
-import { api } from "../../api/coincap";
-
-import { Tr } from "../../components/Tr";
-import { ButtonMore } from "../../components/ButtonMore";
+import { useFetchAssets } from "../../hooks/useFetchAssets";
 import { AssetsProps } from "../../types/AssetsProps";
 
+import { Tr } from "../../components/Tr";
+import { BsSearch } from "react-icons/bs";
+import { ButtonMore } from "../../components/ButtonMore";
+
 export default function Home() {
-  const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
-
-  useEffect(() => {
-    const getAssets = async () => {
-      try {
-        const response = await api.get("/assets", {
-          params: { limit: 10 },
-        });
-
-        let dataAssetsFormated: AssetsProps[] = response.data.data;
-        dataAssetsFormated = dataAssetsFormated.map((item: AssetsProps) => {
-          const dataFormated: AssetsProps = {
-            ...item,
-            priceUsd: formatedPrice.format(Number(item.priceUsd)),
-            marketCapUsd: formatedPriceCompact.format(
-              Number(item.marketCapUsd)
-            ),
-            volumeUsd24Hr: formatedPriceCompact.format(
-              Number(item.volumeUsd24Hr)
-            ),
-          };
-
-          return dataFormated;
-        });
-
-        setCriptosFecth(dataAssetsFormated);
-      } catch (e) {
-        console.log("Erro " + e);
-      }
-    };
-
-    getAssets();
-  }, []);
+  const criptosFecth = useFetchAssets();
 
   function handleGetMore(): void {}
 
