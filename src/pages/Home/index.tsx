@@ -4,9 +4,11 @@ import { AssetsProps } from "../../types/AssetsProps";
 import { Tr } from "../../components/Tr";
 import { BsSearch } from "react-icons/bs";
 import { ButtonMore } from "../../components/ButtonMore";
+import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Home() {
   const criptosFecth = useFetchAssets();
+  console.log(criptosFecth);
 
   function handleGetMore(): void {}
 
@@ -40,17 +42,24 @@ export default function Home() {
             {criptosFecth.map((data: AssetsProps) => (
               <Tr key={data.id}>
                 <td>
-                  {data.name} | {data.symbol}
+                  <div className="">
+                    <CryptoIcon name={data.name} symbol={data.symbol} />
+                    <span>
+                      {data.name} | {data.symbol}
+                    </span>
+                  </div>
                 </td>
                 <td>{data.marketCapUsd}</td>
                 <td>{data.priceUsd}</td>
                 <td>{data.volumeUsd24Hr}</td>
                 <td
                   className={
-                    Number(data.volumeUsd24Hr) > 0 ? "text-profit" : "text-loss"
+                    Number(data.changePercent24Hr) > 0
+                      ? "text-profit"
+                      : "text-loss"
                   }
                 >
-                  1.20
+                  {Number(data.changePercent24Hr).toFixed(2)}
                 </td>
               </Tr>
             ))}
