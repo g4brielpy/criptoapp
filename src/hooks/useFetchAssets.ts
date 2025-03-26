@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AssetsProps } from "../types/AssetsProps";
 import { formatedPrice, formatedPriceCompact } from "../utils/formatedPrice";
 
 import { api } from "../api/coincap";
 
-export function useFetchAssets(): AssetsProps[] {
+export function useFetchAssets() {
   const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
+  const [offSetCriptos, setOffSetCriptos] = useState<number>(0);
+
+  const limitCriptos = useRef<number>(10);
 
   useEffect(() => {
     const getAssets = async () => {
       try {
         const response = await api
           .get("/assets", {
-            params: { limit: 10 },
+            params: { limit: limitCriptos.current, offset: offSetCriptos },
           })
           .then((response) => response.data);
 
@@ -40,7 +43,7 @@ export function useFetchAssets(): AssetsProps[] {
     };
 
     getAssets();
-  }, []);
+  }, [offSetCriptos]);
 
-  return criptosFecth;
+  return { criptosFecth, setOffSetCriptos };
 }

@@ -7,10 +7,14 @@ import { ButtonMore } from "../../components/ButtonMore";
 import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Home() {
-  const criptosFecth = useFetchAssets();
-  console.log(criptosFecth);
+  const { criptosFecth, setOffSetCriptos } = useFetchAssets();
 
-  function handleGetMore(): void {}
+  function handleGetMore(): void {
+    const oldCriptos: AssetsProps[] = criptosFecth;
+    setOffSetCriptos((prevOffSet) => prevOffSet + 10);
+
+    criptosFecth.push(...oldCriptos);
+  }
 
   return (
     <main className="container mx-auto px-6 pb-6">
@@ -28,7 +32,7 @@ export default function Home() {
       </form>
 
       <section className="overflow-auto">
-        <table className="text-white my-10 w-full text-center min-w-[600px] border-separate border-spacing-y-4">
+        <table className="text-white my-10 w-full text-center min-w-[600px] table-fixed border-separate border-spacing-y-4">
           <thead>
             <tr>
               <th scope="col">Moeda</th>
@@ -42,7 +46,7 @@ export default function Home() {
             {criptosFecth.map((data: AssetsProps) => (
               <Tr key={data.id}>
                 <td>
-                  <div className="">
+                  <div className="flex items-center justify-center gap-4">
                     <CryptoIcon name={data.name} symbol={data.symbol} />
                     <span>
                       {data.name} | {data.symbol}
