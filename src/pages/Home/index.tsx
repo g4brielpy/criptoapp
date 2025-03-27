@@ -7,10 +7,10 @@ import { ButtonMore } from "../../components/ButtonMore";
 import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Home() {
+  // Chamada da API, primeira requisição buscas as 10 primeiras moedas.
   const { criptosFecth, setOffSetCriptos } = useFetchAssets();
 
   function handleGetMore(): void {
-    // const oldCriptos: AssetsProps[] = criptosFecth;
     setOffSetCriptos((prevOffSet) => prevOffSet + 10);
   }
 
@@ -30,9 +30,12 @@ export default function Home() {
       </form>
 
       <section className="overflow-auto">
-        <table className="text-white my-10 w-full text-center min-w-[600px] table-fixed border-separate border-spacing-y-4">
+        <table className="text-white text-center my-10 px-4 w-full min-w-[700px] table-fixed border-separate border-spacing-y-4">
           <thead>
             <tr>
+              <th scope="col" className="w-14">
+                #
+              </th>
               <th scope="col">Moeda</th>
               <th scope="col">Valor mercado</th>
               <th scope="col">Preço</th>
@@ -43,12 +46,15 @@ export default function Home() {
           <tbody>
             {criptosFecth.map((data: AssetsProps) => (
               <Tr key={data.id}>
+                <td className="w-14 text-center">{data.rank}</td>
                 <td>
-                  <div className="flex items-center justify-center gap-4">
-                    <CryptoIcon name={data.name} symbol={data.symbol} />
-                    <span>
-                      {data.name} | {data.symbol}
-                    </span>
+                  <div className="flex justify-center items-center">
+                    <div className="w-40 flex items-center gap-4">
+                      <CryptoIcon name={data.name} symbol={data.symbol} />
+                      <span>
+                        {data.name} | {data.symbol}
+                      </span>
+                    </div>
                   </div>
                 </td>
                 <td>{data.marketCapUsd}</td>
