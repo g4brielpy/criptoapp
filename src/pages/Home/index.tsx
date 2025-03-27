@@ -10,10 +10,8 @@ export default function Home() {
   const { criptosFecth, setOffSetCriptos } = useFetchAssets();
 
   function handleGetMore(): void {
-    const oldCriptos: AssetsProps[] = criptosFecth;
+    // const oldCriptos: AssetsProps[] = criptosFecth;
     setOffSetCriptos((prevOffSet) => prevOffSet + 10);
-
-    criptosFecth.push(...oldCriptos);
   }
 
   return (
