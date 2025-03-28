@@ -2,6 +2,7 @@ import { useFetchAssets } from "../../hooks/useFetchAssets";
 import { AssetsProps } from "../../types/AssetsProps";
 
 import { Tr } from "../../components/Tr";
+import { Link } from "react-router";
 import { BsSearch } from "react-icons/bs";
 import { ButtonMore } from "../../components/ButtonMore";
 import { CryptoIcon } from "../../components/CryptoIcon";
@@ -49,12 +50,14 @@ export default function Home() {
                 <td className="w-14 text-center">{data.rank}</td>
                 <td>
                   <div className="flex justify-center items-center">
-                    <div className="w-40 flex items-center gap-4">
-                      <CryptoIcon name={data.name} symbol={data.symbol} />
-                      <span>
-                        {data.name} | {data.symbol}
-                      </span>
-                    </div>
+                    <Link to={`detail/${data.id}`}>
+                      <div className="w-40 flex items-center gap-4">
+                        <CryptoIcon name={data.name} symbol={data.symbol} />
+                        <span>
+                          {data.name} | {data.symbol}
+                        </span>
+                      </div>
+                    </Link>
                   </div>
                 </td>
                 <td>{data.marketCapUsd}</td>
