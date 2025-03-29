@@ -3,16 +3,21 @@ import { AssetsProps } from "../../types/AssetsProps";
 
 import { Tr } from "../../components/Tr";
 import { Link } from "react-router";
+import { Loading } from "./Loading";
 import { BsSearch } from "react-icons/bs";
 import { ButtonMore } from "../../components/ButtonMore";
 import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Home() {
   // Chamada da API, primeira requisição buscas as 10 primeiras moedas.
-  const { criptosFecth, setOffSetCriptos } = useFetchAssets();
+  const { criptosFecth, setOffSetCriptos, isLoading } = useFetchAssets();
 
   function handleGetMore(): void {
     setOffSetCriptos((prevOffSet) => prevOffSet + 10);
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -56,6 +61,7 @@ export default function Home() {
                           name={data.name}
                           symbol={data.symbol}
                           idCripto={data.id}
+                          className="w-6 h-auto object-cover hover:animate-spin"
                         />
                         <span>
                           {data.name} | {data.symbol}
