@@ -1,28 +1,38 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import { AssetsProps } from "../types/AssetsProps";
+import { formatedPrice, formatedPriceCompact } from "../utils/formatedPrice";
 
 import { api } from "../api/coincap";
 
-export function useFetchCripto() {
-  const { cripto } = useParams();
+export function useFetchCripto(criptoId?: string) {
   const [criptoFetch, setCriptoFetch] = useState<AssetsProps>();
 
   useEffect(() => {
+    if (!criptoId) return; // Evita requisições desnecessárias
+
     async function getCoin() {
       try {
-        const response: AssetsProps = await api
-          .get(`/assets/${cripto}`)
-          .then((response) => response.data.data);
+        const response = await api.get(`/assets/${criptoId}`);
 
-        setCriptoFetch(response);
+        const dataAssetsFormated: AssetsProps = {
+          ...response.data.data,
+          priceUsd: formatedPrice.format(Number(response.data.data.priceUsd)),
+          marketCapUsd: formatedPriceCompact.format(
+            Number(response.data.data.marketCapUsd)
+          ),
+          volumeUsd24Hr: formatedPriceCompact.format(
+            Number(response.data.data.volumeUsd24Hr)
+          ),
+        };
+
+        setCriptoFetch(dataAssetsFormated);
       } catch (e) {
         console.log("Erro: " + e);
       }
     }
 
     getCoin();
-  }, [cripto]);
+  }, [criptoId]);
 
   return { criptoFetch };
 }

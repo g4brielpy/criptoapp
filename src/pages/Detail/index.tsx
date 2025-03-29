@@ -1,7 +1,9 @@
 import { useFetchCripto } from "../../hooks/useFetchCripto";
+import { useParams } from "react-router";
 
 export default function Detail() {
-  const { criptoFetch } = useFetchCripto();
+  const { cripto } = useParams();
+  const { criptoFetch } = useFetchCripto(cripto);
   console.log(criptoFetch);
 
   return (
