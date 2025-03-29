@@ -4,9 +4,15 @@ import LogoDefault from "../../assets/cryptocurrency.png";
 interface CryptoIconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   symbol: string;
   name: string;
+  idCripto: string;
 }
 
-export function CryptoIcon({ symbol, name, ...rest }: CryptoIconProps) {
+export function CryptoIcon({
+  symbol,
+  name,
+  idCripto,
+  ...rest
+}: CryptoIconProps) {
   const [srcIcon, setSrcIcon] = useState(
     `https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}2@2x.png`
   );
@@ -22,9 +28,15 @@ export function CryptoIcon({ symbol, name, ...rest }: CryptoIconProps) {
       );
       setAttempt(1);
     } else if (attempt === 1) {
-      // Segunda falha: Adicionar icon padrão para moedas onde não há resultado com name
-      setSrcIcon(LogoDefault);
+      // Segunda falha: tenta usar o id
+      setSrcIcon(
+        `https://assets.coincap.io/assets/icons/${idCripto.toLowerCase()}2@2x.png`
+      );
       setAttempt(2);
+    } else if (attempt === 2) {
+      // Terceira falha: Adicionar icon padrão para moedas onde não há resultado com name
+      setSrcIcon(LogoDefault);
+      setAttempt(3);
     }
   };
 
