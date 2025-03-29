@@ -28,17 +28,22 @@ export default function Home() {
           name="name-crypt"
           placeholder="Digite o nome da Crypto"
           required
-          className="w-full h-12 px-5 rounded-md outline-primary"
+          className="w-full h-12 px-5 rounded-md border-none bg-primaryOpace text-white outline-none transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-600"
         />
+
         <button type="submit">
-          <BsSearch size={"2.4rem"} color="#fff" />
+          <BsSearch
+            size={"2.4rem"}
+            color="#fff"
+            className="transition-all duration-300 ease-in-out hover:scale-110 active:scale-90"
+          />
         </button>
       </form>
 
       <section className="overflow-auto">
         <table className="text-white text-center my-10 px-4 w-full min-w-[700px] table-fixed border-separate border-spacing-y-4">
           <thead>
-            <tr>
+            <tr className="text-cyan-500">
               <th scope="col" className="w-14">
                 #
               </th>
