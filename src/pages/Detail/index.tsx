@@ -2,13 +2,14 @@ import { useFetchCripto } from "../../hooks/useFetchCripto";
 import { useParams } from "react-router";
 
 import { Loading } from "./Loading";
+import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Detail() {
   const { cripto } = useParams();
   const { criptoFetch, loading } = useFetchCripto(cripto);
   console.log(criptoFetch);
 
-  if (loading) {
+  if (loading || !criptoFetch) {
     return <Loading />;
   }
 
@@ -19,6 +20,14 @@ export default function Detail() {
       </h1>
       <section className="bg-neutral-950 text-white max-w-[420px] p-6 rounded-lg">
         <ul className="space-y-3">
+          <li>
+            <CryptoIcon
+              name={criptoFetch?.name}
+              idCripto={criptoFetch?.id}
+              symbol={criptoFetch?.symbol}
+              className="w-16 h-auto object-cover hover:animate-spin"
+            />
+          </li>
           <li>
             <h2 className="font-bold text-2xl mb-6">
               {criptoFetch?.name} | {criptoFetch?.symbol}
