@@ -52,7 +52,11 @@ export default function Home() {
                   <div className="flex justify-center items-center">
                     <Link to={`detail/${data.id}`}>
                       <div className="w-40 flex items-center gap-4">
-                        <CryptoIcon name={data.name} symbol={data.symbol} />
+                        <CryptoIcon
+                          name={data.name}
+                          symbol={data.symbol}
+                          idCripto={data.id}
+                        />
                         <span>
                           {data.name} | {data.symbol}
                         </span>
