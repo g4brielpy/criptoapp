@@ -3,18 +3,21 @@ import { useNavigate } from "react-router";
 import { useFetchAssets } from "../../hooks/useFetchAssets";
 import { AssetsProps } from "../../types/AssetsProps";
 
+import { Erro } from "./Erro";
+import { Loading } from "./Loading";
+
 import { Tr } from "../../components/Tr";
 import { Link } from "react-router";
-import { Loading } from "./Loading";
 import { BsSearch } from "react-icons/bs";
 import { ButtonMore } from "../../components/ButtonMore";
 import { CryptoIcon } from "../../components/CryptoIcon";
 
 export default function Home() {
   // Chamada da API, primeira requisição buscas as 10 primeiras moedas.
-  const { criptosFecth, setOffSetCriptos, isLoading } = useFetchAssets();
-  const [inputCripto, setInputCripto] = useState<string>("");
+  const { criptosFecth, setOffSetCriptos, isLoading, isErro } =
+    useFetchAssets();
   const navigate = useNavigate();
+  const [inputCripto, setInputCripto] = useState<string>("");
 
   function handleGetMore(): void {
     setOffSetCriptos((prevOffSet) => prevOffSet + 10);
@@ -27,6 +30,10 @@ export default function Home() {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isErro) {
+    return <Erro />;
   }
 
   return (
