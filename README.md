@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# CriptoApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CriptoApp é uma aplicação web React construída com TypeScript e Tailwind CSS que fornece dados de criptomoedas em tempo real usando a API CoinCap 2.0.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Exibe uma lista de criptomoedas com seus preços, capitalização de mercado e outras informações relevantes.
+- Permite pesquisar criptomoedas por nome.
+- Exibe detalhes de criptomoedas individuais.
+- Fornece dados em tempo real usando a API CoinCap 2.0.
+- Possui um design responsivo que funciona bem em dispositivos móveis e desktops.
+- Mostra um indicador de carregamento enquanto busca os dados da API.
+- Exibe mensagens de erro amigáveis em caso de falha na requisição.
 
-## Expanding the ESLint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
+- CoinCap 2.0 API
+- Vercel
 
-- Configure the top-level `parserOptions` property like this:
+## Link do Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+[Click aqui para acessar o projeto](https://criptoapp.vercel.app)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Instalação Local
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1.  Clone o repositório:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+    ```bash
+    git clone https://github.com/g4brielpy/criptoapp.git
+    ```
+
+2.  Navegue até o diretório do projeto:
+
+    ```bash
+    cd criptoapp
+    ```
+
+3.  Instale as dependências:
+
+    ```bash
+    npm install
+    ```
+
+4.  Inicie o servidor de desenvolvimento:
+
+    ```bash
+    npm run dev
+    ```
+
+5.  Abra o navegador e acesse `http://localhost:5173`. (Caso a porta seja diferente, o terminal irá informar a porta utilizada).
+
+## API
+
+Este projeto utiliza a API CoinCap 2.0 para buscar dados de criptomoedas em tempo real. Mais informações sobre a API podem ser encontradas em: [https://docs.coincap.io/](https://docs.coincap.io/)
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
+
+## Contato
+
+- Email: gabrielsantos031bh@gmail.com
+- Linkedin: [https://www.linkedin.com/in/g4briel-yur1/](https://www.linkedin.com/in/g4briel-yur1/)
