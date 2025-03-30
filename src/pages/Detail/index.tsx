@@ -3,13 +3,19 @@ import { useNavigate } from "react-router";
 import { useParams } from "react-router";
 
 import { Loading } from "./Loading";
+import { Erro } from "./Erro";
+
 import { CryptoIcon } from "../../components/CryptoIcon";
 import { ButtonMore } from "../../components/ButtonMore";
 
 export default function Detail() {
   const { cripto } = useParams();
-  const { criptoFetch, loading } = useFetchCripto(cripto);
+  const { criptoFetch, loading, isErro } = useFetchCripto(cripto);
   const navegate = useNavigate();
+
+  if (isErro) {
+    return <Erro />;
+  }
 
   if (loading || !criptoFetch) {
     return <Loading />;
