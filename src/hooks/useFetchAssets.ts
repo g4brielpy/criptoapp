@@ -7,6 +7,7 @@ export function useFetchAssets() {
   const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
   const [offSetCriptos, setOffSetCriptos] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false); // Estado para controlar carregamento
+  const [isErro, setIsErro] = useState<boolean>(false);
 
   const limitCriptos = useRef<number>(10);
   const isFirstLoad = useRef<boolean>(true); // Para evitar a execução inicial desnecessária
@@ -44,6 +45,7 @@ export function useFetchAssets() {
         ]);
       } catch (error) {
         console.error("Erro ao buscar criptomoedas:", error);
+        setIsErro(true);
       } finally {
         setIsLoading(false); // Desativa o estado de carregamento após a requisição
       }
@@ -52,5 +54,5 @@ export function useFetchAssets() {
     getAssets();
   }, [offSetCriptos]);
 
-  return { criptosFecth, setOffSetCriptos, isLoading };
+  return { criptosFecth, setOffSetCriptos, isLoading, isErro };
 }
