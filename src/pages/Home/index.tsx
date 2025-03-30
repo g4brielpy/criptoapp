@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { useFetchAssets } from "../../hooks/useFetchAssets";
 import { AssetsProps } from "../../types/AssetsProps";
 
@@ -11,9 +13,16 @@ import { CryptoIcon } from "../../components/CryptoIcon";
 export default function Home() {
   // Chamada da API, primeira requisição buscas as 10 primeiras moedas.
   const { criptosFecth, setOffSetCriptos, isLoading } = useFetchAssets();
+  const [inputCripto, setInputCripto] = useState<string>("");
+  const navigate = useNavigate();
 
   function handleGetMore(): void {
     setOffSetCriptos((prevOffSet) => prevOffSet + 10);
+  }
+
+  function handleSubmitCrypto(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+    navigate(`detail/${inputCripto.toLowerCase()}`);
   }
 
   if (isLoading) {
@@ -22,13 +31,20 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-6 pb-6">
-      <form action="#" className="flex gap-6">
+      <form className="flex gap-6" onSubmit={handleSubmitCrypto}>
         <input
           type="text"
           name="name-crypt"
           placeholder="Digite o nome da Crypto"
           required
-          className="w-full h-12 px-5 rounded-md border-none bg-primaryOpace text-white outline-none transition-all duration-300 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-600"
+          className="
+            w-full h-12 px-5 rounded-md border-none 
+            bg-primaryOpace text-white outline-none 
+            transition-all duration-300 ease-in-out 
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-600
+          "
+          value={inputCripto}
+          onChange={(e) => setInputCripto(e.target.value)}
         />
 
         <button type="submit">
