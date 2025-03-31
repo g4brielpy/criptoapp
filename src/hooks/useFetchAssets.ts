@@ -6,21 +6,14 @@ import { api } from "../api/coincap";
 export function useFetchAssets() {
   const [criptosFecth, setCriptosFecth] = useState<AssetsProps[]>([]);
   const [offSetCriptos, setOffSetCriptos] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // Estado para controlar carregamento
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Carregando inicialmente
   const [isErro, setIsErro] = useState<boolean>(false);
 
   const limitCriptos = useRef<number>(10);
-  const isFirstLoad = useRef<boolean>(true); // Para evitar a execução inicial desnecessária
 
   useEffect(() => {
-    // Evitar a requisição automática na primeira renderização
-    if (isFirstLoad.current) {
-      isFirstLoad.current = false;
-      return;
-    }
-
     const getAssets = async () => {
-      setIsLoading(true); // Ativa o estado de carregamento
+      setIsLoading(true);
       try {
         const response = await api.get("/assets", {
           params: { limit: limitCriptos.current, offset: offSetCriptos },
@@ -47,7 +40,8 @@ export function useFetchAssets() {
         console.error("Erro ao buscar criptomoedas:", error);
         setIsErro(true);
       } finally {
-        setIsLoading(false); // Desativa o estado de carregamento após a requisição
+        // Desativa o estado de carregamento
+        setIsLoading(false);
       }
     };
 
