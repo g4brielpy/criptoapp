@@ -23,7 +23,7 @@ CriptoApp é uma aplicação web React construída com TypeScript e Tailwind CSS
 
 ## Link do Projeto
 
-[Click aqui para acessar o projeto](https://criptoapp.vercel.app)
+[Click aqui para acessar o projeto](https://criptoapp-alpha.vercel.app/)
 
 ## Instalação Local
 
