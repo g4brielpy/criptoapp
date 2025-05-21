@@ -13,37 +13,37 @@ export function CryptoIcon({
   idCripto,
   ...rest
 }: CryptoIconProps) {
-  const [srcIcon, setSrcIcon] = useState(
-    `https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}2@2x.png`
-  );
+  const fallbackIcons = [
+    `https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}2@2x.png`,
+    `https://assets.coincap.io/assets/icons/${name.toLowerCase()}2@2x.png`,
+    `https://assets.coincap.io/assets/icons/${idCripto.toLowerCase()}2@2x.png`,
+    LogoDefault,
+  ];
 
-  // Controla o número de tentativas
   const [attempt, setAttempt] = useState(0);
 
+  const getIconWithQuery = (index: number) => {
+    const icon = fallbackIcons[index];
+    // Para imagens locais, não precisa adicionar query param
+    return typeof icon === "string" && icon.startsWith("http")
+      ? `${icon}?v=${index}`
+      : icon;
+  };
+
+  const [srcIcon, setSrcIcon] = useState(getIconWithQuery(0));
+
   const handleImageError = () => {
-    if (attempt === 0) {
-      // Primeira falha: tenta usar o name
-      setSrcIcon(
-        `https://assets.coincap.io/assets/icons/${name.toLowerCase()}2@2x.png`
-      );
-      setAttempt(1);
-    } else if (attempt === 1) {
-      // Segunda falha: tenta usar o id
-      setSrcIcon(
-        `https://assets.coincap.io/assets/icons/${idCripto.toLowerCase()}2@2x.png`
-      );
-      setAttempt(2);
-    } else if (attempt === 2) {
-      // Terceira falha: Adicionar icon padrão para moedas onde não há resultado com name
-      setSrcIcon(LogoDefault);
-      setAttempt(3);
+    const nextAttempt = attempt + 1;
+    if (nextAttempt < fallbackIcons.length) {
+      setSrcIcon(getIconWithQuery(nextAttempt));
+      setAttempt(nextAttempt);
     }
   };
 
   return (
     <img
       src={srcIcon}
-      alt={" "}
+      alt={`Ícone da criptomoeda ${name}`}
       onError={handleImageError}
       className="w-5 h-auto object-cover"
       {...rest}
